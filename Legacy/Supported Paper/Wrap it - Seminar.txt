@@ -1,0 +1,16 @@
+Correlation Analysis between: Weight Loss, Temp, and Shelf-Life
+Support Vector Machine - No Regression
+--  TODO --
+
+Equipment: Data Log
+
+Literature Review -- TO DO - LOG -- (Correlation Analysis, Support Vector Machine, Method
+
+ล้อ paper Packaging performance evaluation and freshness intelligent prediction modeling in grape transportation
+
+--Result 
+1. Corelation analysis
+2. Accuracy of SVM
+
+Feature
+Temp, WL, Shelf Life
