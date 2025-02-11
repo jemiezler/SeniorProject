@@ -14,14 +14,18 @@ def load_data(file_path, chunk_size=10000):
 
 # Feature Engineering
 def apply_transformations(df):
+    # Ensure all columns are numeric
+    df = df.apply(pd.to_numeric, errors='coerce')
+    df.fillna(0, inplace=True)  # Replace NaNs with 0
+    
     for col in df.columns:
-        if df[col].min() > 0:  # Apply log transformation only to positive values
+        if df[col].dtype in [np.float64, np.int64] and df[col].min() > 0:  # Apply log transformation only to positive numeric values
             df[col + "_Log"] = np.log1p(df[col])
     
     # Polynomial Features (Degree 2)
     poly = PolynomialFeatures(degree=2, include_bias=False)
-    X_poly = poly.fit_transform(df.drop("Weight", axis=1))
-    df_poly = pd.DataFrame(X_poly, columns=poly.get_feature_names_out(df.drop("Weight", axis=1).columns))
+    X_poly = poly.fit_transform(df.drop("Weight", axis=1, errors='ignore'))
+    df_poly = pd.DataFrame(X_poly, columns=poly.get_feature_names_out(df.drop("Weight", axis=1, errors='ignore').columns))
     
     return df_poly
 
