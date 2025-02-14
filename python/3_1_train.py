@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+import sys
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -10,6 +11,7 @@ import logging
 from itertools import combinations
 from multiprocessing import Pool
 from lightgbm import LGBMRegressor
+import tqdm
 from xgboost import XGBRegressor
 from sklearn.linear_model import LinearRegression, Ridge, Lasso, ElasticNet, HuberRegressor, QuantileRegressor
 from sklearn.ensemble import RandomForestRegressor
@@ -27,6 +29,47 @@ def load_data(file_path):
     df['Temp'] = df['Label'].apply(lambda x: x.split('_')[1])
     df.drop('Label', axis=1, inplace=True)
     return df
+class SingleLineLogger:
+    def __init__(self):
+        self.last_msg = ''
+    
+    def write(self, msg):
+        # Clear the last message by writing spaces
+        if self.last_msg:
+            sys.stdout.write('\r' + ' ' * len(self.last_msg) + '\r')
+        # Write the new message
+        sys.stdout.write('\r' + msg)
+        sys.stdout.flush()
+        self.last_msg = msg
+
+    def flush(self):
+        pass
+
+class VSCodeFormatter(logging.Formatter):
+    def format(self, record):
+        # Simplified format for VS Code output
+        return f"{record.levelname}: {record.getMessage()}"
+
+def setup_logging():
+    # Create logger
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    
+    # Remove any existing handlers
+    for handler in logger.handlers[:]:
+        logger.removeHandler(handler)
+    
+    # Create custom stream handler with single line output
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setFormatter(VSCodeFormatter())
+    logger.addHandler(console_handler)
+    
+    # File handler for complete logs
+    file_handler = logging.FileHandler('training.log')
+    file_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+    logger.addHandler(file_handler)
+    
+    return logger
 
 # Define base feature groups
 base_features = {
@@ -68,19 +111,28 @@ def train_and_evaluate(X, y, feature_sets, models, output_csv):
         scaler = StandardScaler()
         X_train = scaler.fit_transform(X_train)
         X_test = scaler.transform(X_test)
+            # Calculate total steps
+        total_steps = len(feature_sets) * len(models)
+
+        # Custom progress bar format
+        bar_format = '{desc}: {percentage:3.0f}%|{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}]'
         
-        for model_name, model in models.items():
-            model.fit(X_train, y_train)
-            y_pred = model.predict(X_test)
-            r2 = r2_score(y_test, y_pred)
-            mse = mean_squared_error(y_test, y_pred)
-            
-            logging.info(f"{feature_name}, {model_name} - R² Score: {r2:.4f}, MSE: {mse:.4f}")
-            results.append({"Feature Set": feature_name, "Model": model_name, "R2 Score": r2, "MSE": mse})
+        with tqdm.tqdm(total=total_steps, desc="Training Progress", bar_format=bar_format, 
+                file=sys.stdout, position=0, leave=True) as pbar:
+        
+            for model_name, model in models.items():
+                model.fit(X_train, y_train)
+                y_pred = model.predict(X_test)
+                r2 = r2_score(y_test, y_pred)
+                mse = mean_squared_error(y_test, y_pred)
+                
+                logging.info(f"{feature_name}, {model_name} - R² Score: {r2:.4f}, MSE: {mse:.4f}")
+                results.append({"Feature Set": feature_name, "Model": model_name, "R2 Score": r2, "MSE": mse})
     
     results_df = pd.DataFrame(results)
     results_df.to_csv(output_csv, index=False)
     print("Results saved to", output_csv)
+    
 
 if __name__ == "__main__":
     file_path = "weight_color_data.csv"

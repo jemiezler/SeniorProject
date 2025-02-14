@@ -76,15 +76,15 @@ base_features = {
 
 models = {
     "Linear Regression": LinearRegression(),
-    "Ridge Regression": Ridge(alpha=1.0),
-    "Lasso Regression": Lasso(alpha=0.1),
-    "Polynomial Regression": make_pipeline(PolynomialFeatures(degree=2), LinearRegression()),
-    "Elastic Net": ElasticNet(alpha=0.1, l1_ratio=0.5),
+    "Ridge Regression": Ridge(),
+    "Lasso Regression": Lasso(),
+    "Polynomial Regression": make_pipeline(PolynomialFeatures(), LinearRegression()),
+    "Elastic Net": ElasticNet(),
     "Huber Regressor": HuberRegressor(),
-    "Quantile Regressor": QuantileRegressor(quantile=0.5, alpha=0.1),
-    "Random Forest": RandomForestRegressor(n_estimators=100, random_state=42),
-    "XGBoost": XGBRegressor(n_estimators=200, learning_rate=0.05, max_depth=6, random_state=42),
-    "LightGBM": LGBMRegressor(n_estimators=200, learning_rate=0.05, max_depth=6, random_state=42, verbose=-1)
+    "Quantile Regressor": QuantileRegressor(),
+    "Random Forest": RandomForestRegressor(),
+    "XGBoost": XGBRegressor(),
+    "LightGBM": LGBMRegressor() 
 }
 
 
