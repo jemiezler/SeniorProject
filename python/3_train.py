@@ -71,7 +71,8 @@ base_features = {
     "R": ["R_Mean", "R_Std"],
     "G": ["G_Mean", "G_Std"],
     "B": ["B_Mean", "B_Std"],
-    # "Day": ["Day"],
+    "Day": ["Day"],
+    "Temp": ["Temp"]
 }
 
 models = {
@@ -353,7 +354,16 @@ def train_and_evaluate(X, y, feature_sets, models, output_csv_path):
 
 # 🔹 Load Data
 from multiprocessing import Pool
+# Split the 'Label' column into 'Day', 'Temp', and 'Rep'
+df[['Day', 'Temp', 'Rep']] = df['Label'].str.split('_', expand=True)
 
+# Convert new columns to numeric types
+df['Day'] = df['Day'].astype(int)
+df['Temp'] = df['Temp'].astype(int)
+df['Rep'] = df['Rep'].astype(int)
+
+# Drop the original 'Label' column
+df.drop(columns=['Label'], inplace=True)
 
 df = mix_orange(df)  # Apply color mixing
 df = mix_yellow(df)
@@ -364,6 +374,6 @@ X = df[sum(base_features.values(), [])]
 y = df["Weight"]
 
 # Train & Evaluate Models
-with Pool(processes=12) as pool:
+with Pool(processes=96) as pool:
     train_and_evaluate(X, y, progressive_features(base_features), models, "../output/train_csv/interact.csv")
 
