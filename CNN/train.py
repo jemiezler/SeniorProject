@@ -21,13 +21,13 @@ X = []
 y = []
 
 for index, row in df.iterrows():
-    img_path = os.path.join(IMAGE_DIR, row['filename'])
+    img_path = os.path.join(IMAGE_DIR, row['Label'])
     img = cv2.imread(img_path)
 
     if img is not None:
         img = cv2.resize(img, IMAGE_SIZE)  # Resize image
         X.append(img)
-        y.append(row['weight'])
+        y.append(row['Weight'])
 
 X = np.array(X)
 y = np.array(y)
