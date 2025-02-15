@@ -354,6 +354,7 @@ def train_and_evaluate(X, y, feature_sets, models, output_csv_path):
 
 # 🔹 Load Data
 from multiprocessing import Pool
+df = pd.read_csv('weight_color_data.csv')
 # Split the 'Label' column into 'Day', 'Temp', and 'Rep'
 df[['Day', 'Temp', 'Rep']] = df['Label'].str.split('_', expand=True)
 
@@ -374,6 +375,6 @@ X = df[sum(base_features.values(), [])]
 y = df["Weight"]
 
 # Train & Evaluate Models
-with Pool(processes=96) as pool:
+with Pool(processes=8) as pool:
     train_and_evaluate(X, y, progressive_features(base_features), models, "../output/train_csv/interact.csv")
 
