@@ -2,21 +2,74 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import SubmitButton from "@/components/SubmitButton";
+import { HoverEffect } from "@/components/card-hover-effect";
+
+// Fetch the freshness data
+const fetchFreshnessData = async () => {
+  const response = await fetch("https://catfact.ninja/fact");
+  const data = await response.json();
+  return data;
+};
 
 const Result = () => {
   const [freshnessRating, setFreshnessRating] = useState<number | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+  
+  const [items, setItems] = useState<{ title: string; description: string; link: string }[]>([]); 
   const router = useRouter();
   const [isDragging, setIsDragging] = useState(false);
+  const [image, setImage] = useState<File | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [isCompleted, setIsCompleted] = useState(false);
 
   useEffect(() => {
     setFreshnessRating(Math.floor(Math.random() * 5) + 1);
     setImageUrl(localStorage.getItem("imageUrl") || null);
+
+    const fetchData = async () => {
+      const data = await fetchFreshnessData();
+      const formattedData = [
+        {
+          title: "Date of purchase",
+          description: data.fact || "No information available",
+          link: "/purchase",
+        },
+        {
+          title: "Expiration date",
+          description: data.fact || "No information available",
+          link: "/expiration",
+        },
+        {
+          title: "Estimated freshness",
+          description: data.fact || "No information available",
+          link: "/freshness",
+        },
+      ];
+      setItems(formattedData);
+    };
+
+    fetchData();
   }, []);
 
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     setIsDragging(true);
+  };
+
+  const handleSubmit = () => {
+    if (image) {
+      setIsUploading(true);
+
+      setIsUploading(false);
+      setIsCompleted(true);
+
+      router.push("/Upload-kale");
+    }
+  };
+
+  const handleGoBack = () => {
+    router.push("/Upload-kale");
   };
 
   return (
@@ -56,13 +109,17 @@ const Result = () => {
         </div>
       )}
 
-      <div className="mt-6">
-        <button
-          onClick={() => router.push("/")}
-          className="bg-white text-customGreen py-2 px-4 rounded-lg font-bold hover:bg-opacity-90"
-        >
-          Go Back to Upload
-        </button>
+      <div className="mt-6 w-full max-w-[928px] h-[309px] md:h-[298px] lg:h-[110px]">
+        <HoverEffect items={items} className="h-full w-full" />
+      </div>
+
+      {/* Wrap button in a container for better control */}
+      <div className="mt-6 relative z-10">
+        <SubmitButton
+          text="Go back to Upload"
+          variant="homepage"
+          onClick={handleGoBack}
+        />
       </div>
     </div>
   );

@@ -122,8 +122,9 @@ const UploadKale = () => {
       />
 
       {isCompleted && (
-        <div className="mt-6 text-white text-xl font-bold blinking">
-          Upload Complete! Redirecting...
+        <div className="mt-6 text-white text-xl font-bold blinking font-epilogue flex items-center justify-center text-center ">
+          Upload completed! <br />
+          Hold a second for your result
         </div>
       )}
 
