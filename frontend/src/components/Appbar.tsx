@@ -18,7 +18,7 @@ export default function AppBar() {
   return (
     <Navbar
       onMenuOpenChange={setIsMenuOpen}
-      className="shadow-lg backdrop-blur-lg bg-white/30 border border-white/40"
+      className="shadow-lg backdrop-blur-lg bg-white/30"
     >
       {/* Logo & Mobile Menu Toggle */}
       <NavbarContent>
@@ -34,7 +34,10 @@ export default function AppBar() {
       {/* Desktop Navigation */}
       <NavbarContent className="hidden sm:flex gap-6" justify="center">
         <NavbarItem>
-          <Link className="text-gray hover:text-blue-700 transition-colors" href="/">
+          <Link
+            className="text-gray hover:text-blue-700 transition-colors"
+            href="/"
+          >
             Home
           </Link>
         </NavbarItem>

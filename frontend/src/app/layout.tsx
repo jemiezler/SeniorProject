@@ -28,7 +28,6 @@ export default function RootLayout({
       <body>
         {/* Navbar Component */}
         <AppBar />
-
         {/* Main Page Content */}
         {children}
       </body>
