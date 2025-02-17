@@ -30,7 +30,9 @@ export default function RootLayout({
         <AppBar />
 
         {/* Main Page Content */}
-        {children}
+        <section className="bg-bgGreen1 min-h-screen">
+      {children}
+    </section>
       </body>
     </html>
   );

@@ -16,8 +16,11 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        bgGreen1: "#1A331C",
-        stroke1: "#E5E8EB"
+        bgGreen1: "#122112",
+        bgBoxGreen: "#1A331C",
+        stroke1: "#E5E8EB",
+        Greenstokre :"#336636",
+        ButtonGreen: "#016D06"
       },
     },
   },

@@ -1,74 +1,105 @@
 "use client";
+import Navbar from '@/components/navbar';
+import React from 'react';
+import Image from "next/image";
+import StepBox from '@/components/StepBox';
+import { Upload, Search, CheckCircle, Lightbulb, Soup, FileUp, Check,ChartArea } from "lucide-react";
+import Button from "@/components/Button";
 
-import SampleCard from "@/components/SampleCard";
-import { Avatar, Badge, Button } from "@heroui/react";
-
-export default function Home() {
+const Homepage = () => {
   return (
-    <div className="min-h-screen bg-bgGreen1 flex flex-col items-center p-6 space-y-8">
-      <div className="flex gap-3 items-center">
-        <Badge color="default" content="5">
-          <Avatar
-            radius="md"
-            src="https://i.pravatar.cc/150?u=a042f81f4e29026024d"
-          />
-        </Badge>
-        <Badge color="primary" content="5">
-          <Avatar
-            radius="md"
-            src="https://i.pravatar.cc/150?u=a04258a2462d826712d"
-          />
-        </Badge>
-        <Badge color="secondary" content="5">
-          <Avatar
-            radius="md"
-            src="https://i.pravatar.cc/300?u=a042581f4e29026709d"
-          />
-        </Badge>
-        <Badge color="success" content="5">
-          <Avatar
-            radius="md"
-            src="https://i.pravatar.cc/150?u=a04258114e29026302d"
-          />
-        </Badge>
-        <Badge color="warning" content="5">
-          <Avatar
-            radius="md"
-            src="https://i.pravatar.cc/150?u=a04258114e29026708c"
-          />
-        </Badge>
-        <Badge color="danger" content="5">
-          <Avatar
-            radius="md"
-            src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
-          />
-        </Badge>
-      </div>
-      <div className="flex justify-between gap-5">
-        <Button color="default">Default</Button>
-        <Button color="primary">Primary</Button>
-        <Button color="secondary">Secondary</Button>
-      </div>
-      <div className="flex justify-center items-center gap-5">
-        <SampleCard
-          title="Frontend Radio"
-          subtitle="Daily Mix"
-          tracks={12}
-          imageUrl="https://picsum.photos/id/870/200/300?grayscale&blur=2"
-        />
-        <SampleCard
-          title="Frontend Radio"
-          subtitle="Daily Mix"
-          tracks={12}
-          imageUrl="https://picsum.photos/id/870/200/300?grayscale&blur=2"
-        />
-        <SampleCard
-          title="Frontend Radio"
-          subtitle="Daily Mix"
-          tracks={12}
-          imageUrl="https://picsum.photos/id/870/200/300?grayscale&blur=2"
-        />
+    <div>
+      <div className="flex flex-col items-center py-10 px-4">
+        <div className="w-full max-w-screen-lg text-white flex flex-col items-center space-y-12">
+
+          <div className="w-full flex justify-center">
+            <Image
+              src="/Depth 6, Frame 0.png"
+              alt="Is your kale fresh?"
+              width={928}
+              height={480}
+              priority
+              className="max-w-full h-auto rounded-lg"
+            />
+          </div>
+
+          <div className="w-full text-left">
+            <h2 className="text-2xl font-bold font-epilogue pl-6">How it works</h2>
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-6 w-full">
+            <StepBox icon={<Search size={24} color="white" />} text="Upload your image" />
+            <StepBox icon={<FileUp size={24} color="white" />} text="We'll analyze it" />
+            <StepBox icon={<Check size={24} color="white" />} text="We'll tell you if it's fresh" />
+            <StepBox icon={<Lightbulb size={24} color="white" />} text="Tips to keep it fresh longer" />
+          </div>
+
+
+          <div>
+            <a href='/Uploadkale'>
+              <Button text="Start Freshness Test" />
+            </a>
+          </div>
+
+
+          <div className="w-full text-left">
+            <h2 className="text-2xl font-bold font-epilogue pl-6">What is FreshKale?</h2>
+          </div>
+
+          <div className="text-[16px] font-regular font-epilogue pl-6">
+            <p>
+              FreshKale is a fun, easy way to check the freshness of your kale. Just upload an image, and we'll analyze it for you. 
+              We’ll also give you tips on how to keep it fresh longer. Whether you're a seasoned chef or just starting out, 
+              FreshKale helps you make the most of your leafy greens.
+            </p>
+          </div>
+
+          <div className="w-full text-left">
+            <h2 className="text-2xl font-bold font-epilogue pl-6">Why use FreshKale?</h2>
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-6 w-full">
+            <StepBox icon={<ChartArea size={24} color="white" />} text="Keep your food fresh" />
+            <StepBox icon={<Search size={24} color="white" />} text="Quickly find what you need" />
+            <StepBox icon={<CheckCircle size={24} color="white" />} text="Create delicious dishes" />
+            <StepBox icon={<Soup size={24} color="white" />} text="Enjoy your meals more" />
+          </div>
+
+
+          <div className="flex flex-wrap justify-center gap-6 w-full">
+            <div className="w-[30%] h-auto min-w-[150px]">
+              <Image
+                src="/Kale1.png"
+                alt="Kale1"
+                width={301}
+                height={402}
+                className="w-full h-auto object-cover rounded-lg"
+              />
+            </div>
+            <div className="w-[30%] h-auto min-w-[150px]">
+              <Image
+                src="/kale2.png"
+                alt="Kale2"
+                width={301}
+                height={402}
+                className="w-full h-auto object-cover rounded-lg"
+              />
+            </div>
+            <div className="w-[30%] h-auto min-w-[150px]">
+              <Image
+                src="/Kale3.png"
+                alt="Kale3"
+                width={301}
+                height={402}
+                className="w-full h-auto object-cover rounded-lg"
+              />
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
   );
-}
+};
+
+export default Homepage;
