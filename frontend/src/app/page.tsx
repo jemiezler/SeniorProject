@@ -36,7 +36,7 @@ const Homepage = () => {
 
 
           <div>
-            <a href='/Uploadkale'>
+            <a href='/Upload-kale'>
               <Button text="Start Freshness Test" />
             </a>
           </div>

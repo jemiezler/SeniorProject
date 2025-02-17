@@ -20,7 +20,8 @@ export default {
         bgBoxGreen: "#1A331C",
         stroke1: "#E5E8EB",
         Greenstokre :"#336636",
-        ButtonGreen: "#016D06"
+        ButtonGreen: "#016D06",
+        stroke2:"#336636"
       },
     },
   },
