@@ -5,7 +5,7 @@ import { Avatar, Badge, Button } from "@heroui/react";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-900 flex flex-col items-center p-6 space-y-8">
+    <div className="min-h-screen bg-bgGreen1 flex flex-col items-center p-6 space-y-8">
       <div className="flex gap-3 items-center">
         <Badge color="default" content="5">
           <Avatar
