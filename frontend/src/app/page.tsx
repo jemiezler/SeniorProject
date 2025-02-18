@@ -5,10 +5,12 @@ import Image from "next/image";
 import StepBox from '@/components/StepBox';
 import { Upload, Search, CheckCircle, Lightbulb, Soup, FileUp, Check,ChartArea } from "lucide-react";
 import Button from "@/components/Button";
+import {Spotlight} from "@/components/spotlight-new";
 
 const Homepage = () => {
   return (
     <div>
+      <Spotlight/>
       <div className="flex flex-col items-center py-10 px-4">
         <div className="w-full max-w-screen-lg text-white flex flex-col items-center space-y-12">
 
