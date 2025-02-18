@@ -10,9 +10,18 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        epilogue: ["Epilogue", "sans-serif"],
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        bgGreen1: "#122112",
+        bgBoxGreen: "#1A331C",
+        stroke1: "#E5E8EB",
+        Greenstokre :"#336636",
+        ButtonGreen: "#016D06",
+        stroke2:"#336636"
       },
     },
   },

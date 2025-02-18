@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import AppBar from "@/components/Appbar";
+import AppBar from "@/components/navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +29,9 @@ export default function RootLayout({
         {/* Navbar Component */}
         <AppBar />
         {/* Main Page Content */}
-        {children}
+        <section className="bg-bgGreen1 min-h-screen">
+      {children}
+    </section>
       </body>
     </html>
   );

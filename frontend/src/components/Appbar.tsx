@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import React from "react";
 import {
   Navbar,
@@ -18,7 +19,7 @@ export default function AppBar() {
   return (
     <Navbar
       onMenuOpenChange={setIsMenuOpen}
-      className="shadow-lg backdrop-blur-lg bg-white/30"
+      className="shadow-lg backdrop-blur-lg bg-bgGreen1 border-b border-stroke "
     >
       {/* Logo & Mobile Menu Toggle */}
       <NavbarContent>
@@ -27,7 +28,14 @@ export default function AppBar() {
           className="sm:hidden"
         />
         <NavbarBrand>
-          <p className="text-2xl font-bold">KaleCheck</p>
+          <Image
+            src="/Kale Logo.png"
+            alt="KaleCheck Logo"
+            width={17}
+            height={18}
+            className="mr-2"
+          />
+          <p className="font-epilogue text-2xl font-bold">KaleCheck</p>
         </NavbarBrand>
       </NavbarContent>
 
