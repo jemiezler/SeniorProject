@@ -43,6 +43,18 @@ base_features = {
     "Temp": ["Temp"]
 }
 
+# Add orange and yellow keys
+base_features["Orange"] = ["Mixed_RedGreen_Mean", "Mixed_RedGreen_Std"]
+base_features["Orange_Lab"] = ["Mixed_L_Mean", "Mixed_a_Mean", "Mixed_b_Mean", "Mixed_L_Std", "Mixed_a_Std", "Mixed_b_Std"]
+base_features["Orange_HSV"] = ["Mixed_H_Mean", "Mixed_S_Mean", "Mixed_V_Mean", "Mixed_H_Std", "Mixed_S_Std", "Mixed_V_Std"]
+
+base_features["Yellow"] = ["Mixed_RedGreenYellow_Mean", "Mixed_RedGreenYellow_Std"]
+base_features["Yellow_LAB"] = ["Mixed_Yellow_L_Mean", "Mixed_Yellow_a_Mean", "Mixed_Yellow_b_Mean", "Mixed_Yellow_L_Std", "Mixed_Yellow_a_Std", "Mixed_Yellow_b_Std"]
+base_features["Yellow_HSV"] = ["Mixed_Yellow_H_Mean", "Mixed_Yellow_S_Mean", "Mixed_Yellow_V_Mean", "Mixed_Yellow_H_Std", "Mixed_Yellow_S_Std", "Mixed_Yellow_V_Std"]
+
+# Now generate the feature combinations after adding all keys
+
+
 def progressive_features(features_dict):
     feature_combinations = {}
     feature_groups = list(features_dict.keys())
@@ -54,8 +66,6 @@ def progressive_features(features_dict):
     
     logging.info(f"Generated {len(feature_combinations)} feature combinations.")
     return feature_combinations
-
-feature_sets = progressive_features(base_features)
 
 def mix_orange(df, red_weight=0.8, green_weight=0.2):
     """
@@ -99,14 +109,6 @@ def mix_orange(df, red_weight=0.8, green_weight=0.2):
 
     return df
 
-base_features["Orange"] = ["Mixed_RedGreen_Mean", "Mixed_RedGreen_Std"]
-base_features["Orange_Lab"] = ["Mixed_L_Mean", "Mixed_a_Mean", "Mixed_b_Mean", "Mixed_L_Std", "Mixed_a_Std", "Mixed_b_Std"]
-base_features["Orange_HSV"] = ["Mixed_H_Mean", "Mixed_S_Mean", "Mixed_V_Mean", "Mixed_H_Std", "Mixed_S_Std", "Mixed_V_Std"]
-
-
-# In[22]:
-
-
 def mix_yellow(df, red_weight=0.5, green_weight=0.5):
     """
     Create a new feature that represents a mixed color (Yellow) from Red and Green.
@@ -148,9 +150,6 @@ def mix_yellow(df, red_weight=0.5, green_weight=0.5):
     df["Mixed_Yellow_V_Std"] = (df["V_Std"] * red_weight + df["V_Std"] * green_weight).astype(int)
 
     return df
-base_features["Yellow"] = ["Mixed_RedGreenYellow_Mean", "Mixed_RedGreenYellow_Std"]
-base_features["Yellow_LAB"] = ["Mixed_Yellow_L_Mean", "Mixed_Yellow_a_Mean", "Mixed_Yellow_b_Mean", "Mixed_Yellow_L_Std", "Mixed_Yellow_a_Std", "Mixed_Yellow_b_Std"]
-base_features["Yellow_HSV"] = ["Mixed_Yellow_H_Mean", "Mixed_Yellow_S_Mean", "Mixed_Yellow_V_Mean", "Mixed_Yellow_H_Std", "Mixed_Yellow_S_Std", "Mixed_Yellow_V_Std"]
 
 def create_interaction_features(df):
     """
@@ -166,6 +165,7 @@ def create_interaction_features(df):
 
     return df
 
+feature_sets = progressive_features(base_features)
 # Feature Engineering
 df = mix_orange(df)
 df = mix_yellow(df)
