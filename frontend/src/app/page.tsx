@@ -1,13 +1,13 @@
 "use client";
 
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/Default/Navbar";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import StepBox from "@/components/StepBox";
+import StepBox from "@/components/Default/StepBox";
 import { Upload, Search, CheckCircle, Lightbulb, Soup, FileUp, Check, ChartArea } from "lucide-react";
-import Button from "@/components/Button";
-import { Spotlight } from "@/components/spotlight-new";
+import Button from "@/components/Default/Button";
+import { Spotlight } from "@/components/Default/Spotlight";
 
 const Homepage = () => {
   return (
@@ -42,7 +42,7 @@ const Homepage = () => {
 
           {/* Start Freshness Test Button */}
           <div>
-            <Link href="/Upload-kale">
+            <Link href="/upload-kale">
               <Button text="Start Freshness Test" />
             </Link>
           </div>

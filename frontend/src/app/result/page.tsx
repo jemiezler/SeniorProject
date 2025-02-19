@@ -2,9 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import SubmitButton from "@/components/SubmitButton";
-import { HoverEffect } from "@/components/card-hover-effect";
-import Button from "@/components/Button";
+import { HoverEffect } from "@/components/Default/CardHover";
+import Button from "@/components/Default/Button";
 
 // Fetch the freshness data
 const fetchFreshnessData = async () => {
@@ -17,7 +16,7 @@ const Result = () => {
   const [freshnessRating, setFreshnessRating] = useState<number | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   
-  const [items, setItems] = useState<{ title: string; description: string; link: string }[]>([]); 
+  const [items, setItems] = useState<{ title: string; description: string }[]>([]); 
   const router = useRouter();
   const [isDragging, setIsDragging] = useState(false);
   const [image, setImage] = useState<File | null>(null);
@@ -34,17 +33,15 @@ const Result = () => {
         {
           title: "Date of purchase",
           description: data.fact || "No information available",
-          link: "/purchase",
         },
         {
           title: "Expiration date",
           description: data.fact || "No information available",
-          link: "/expiration",
         },
         {
           title: "Estimated freshness",
           description: data.fact || "No information available",
-          link: "/freshness",
+          link: "/",
         },
       ];
       setItems(formattedData);
@@ -65,12 +62,12 @@ const Result = () => {
       setIsUploading(false);
       setIsCompleted(true);
 
-      router.push("/Upload-kale");
+      router.push("/upload-kale");
     }
   };
 
   const handleGoBack = () => {
-    router.push("/Upload-kale");
+    router.push("/upload-kale");
   };
 
   return (

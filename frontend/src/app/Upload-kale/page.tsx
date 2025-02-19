@@ -2,10 +2,10 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import SubmitButton from "@/components/SubmitButton";
-import ProgressLoader from "@/components/ProgressLoader";
-import Input from "@/components/input";
-import Button from "@/components/Button";
+import SubmitButton from "@/components/UploadKale/SubmitButton";
+import ProgressLoader from "@/components/UploadKale/ProgressLoader";
+import Input from "@/components/Default/Input";
+import Button from "@/components/Default/Button";
 
 const UploadKale = () => {
   const [image, setImage] = useState<File | null>(null);

@@ -1,6 +1,5 @@
 import { cn } from "@/app/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
-import Link from "next/link";
 import { useState } from "react";
 
 export const HoverEffect = ({
@@ -11,7 +10,6 @@ export const HoverEffect = ({
       id: string;
       title: string;
       description: string;
-      link?: string;  // link is now optional
     }[];
     className?: string;
   }) => {
@@ -28,8 +26,8 @@ export const HoverEffect = ({
         )}
       >
         {validItems.map((item, idx) => (
-          <Link
-            href={item?.link || "/"}  // Fallback to "/" if link is undefined
+          <div
+            // Fallback to "/" if link is undefined
             key={item?.id || idx}
             className="relative group block p-2 h-full w-full"
             onMouseEnter={() => setHoveredIndex(idx)}
@@ -56,7 +54,7 @@ export const HoverEffect = ({
               <CardTitle>{item.title}</CardTitle>
               <CardDescription>{item.description}</CardDescription>
             </Card>
-          </Link>
+          </div>
         ))}
       </div>
     );
