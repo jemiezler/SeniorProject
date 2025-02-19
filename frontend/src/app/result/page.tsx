@@ -118,7 +118,6 @@ const Result = () => {
       <div className="mt-1 z-5">
         <Button
           text="Go back to Upload"
-          variant="homepage"
           onClick={handleGoBack}
         />
       </div>
