@@ -2,9 +2,10 @@ from fastapi import FastAPI
 import tensorflow as tf
 import numpy as np
 from pydantic import BaseModel
+from proto import predict_pb2, predict_pb2_grpc
 
 # Load the exported model
-MODEL_PATH = "lstm"
+MODEL_PATH = "model/LSTM/export"
 model = tf.saved_model.load(MODEL_PATH)
 
 # Get the serving function

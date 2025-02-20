@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option go_package = "backend/proto";
+// Define the gRPC Service
+service PredictionService {
+  rpc Predict (PredictionRequest) returns (PredictionResponse);
+}
+
+// Request message (features input)
+message PredictionRequest {
+  repeated float features = 1;
+}
+
+// Response message (prediction output)
+message PredictionResponse {
+  repeated float predictions = 1;
+}
+
+
+/*🔹 Explanation
+PredictionService: Defines the RPC method Predict(), which takes PredictionRequest and returns PredictionResponse.
+PredictionRequest: Contains features (a list of floats).
+PredictionResponse: Returns predictions (a list of floats).
+option go_package: Specifies the package name for Go (go-hex-ml/proto).
+option python_package: Specifies the package name for Python (fastapi_ml.proto).
+*/
