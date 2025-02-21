@@ -15,8 +15,10 @@ const fetchFreshnessData = async () => {
 const Result = () => {
   const [freshnessRating, setFreshnessRating] = useState<number | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
-  
-  const [items, setItems] = useState<{ title: string; description: string }[]>([]); 
+
+  const [items, setItems] = useState<{ title: string; description: string }[]>(
+    []
+  );
   const router = useRouter();
   const [isDragging, setIsDragging] = useState(false);
   const [image, setImage] = useState<File | null>(null);
@@ -75,7 +77,7 @@ const Result = () => {
       <h1 className="text-lg md:text-2xl lg:text-3xl font-bold font-epilogue text-white mb-6 text-center">
         Kale Freshness Result
       </h1>
-  
+
       <div
         className={`relative flex flex-col justify-center items-center w-full max-w-[928px] h-[200px] md:h-[250px] lg:h-[309px] border-2 rounded-lg p-4 transition
           ${
@@ -96,7 +98,7 @@ const Result = () => {
           </p>
         )}
       </div>
-  
+
       {freshnessRating ? (
         <div className="mt-6 text-white text-xl font-bold">
           Your kale freshness rating is: {freshnessRating} / 5
@@ -106,11 +108,11 @@ const Result = () => {
           Loading freshness rating...
         </div>
       )}
-  
-      <div className="mt-6 w-full max-w-[928px]">
+
+      <div className="mt-3 w-full max-w-[928px]">
         <HoverEffect items={items} className="h-full w-full" />
       </div>
-  
+
       {/* Fixed button positioning */}
       <div className="mt-1 z-5">
         <Button
@@ -121,6 +123,6 @@ const Result = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Result;
