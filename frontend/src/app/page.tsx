@@ -22,7 +22,6 @@ import ImageCard from "@/components/Default/ImageHover";
 const Homepage = () => {
   return (
     <div>
-      <Spotlight />
       <div className="flex flex-col items-center py-10 px-4">
         <div className="w-full max-w-screen-lg text-white flex flex-col items-center space-y-12">
           {/* Hero Image */}

@@ -1,14 +1,39 @@
 "use client";
-import { useState } from "react";
+
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0); // Store last scroll position
+
+  useEffect(() => {
+    if (typeof window === "undefined") return; // Ensure this runs only on the client
+
+    const handleScroll = () => {
+      if (window.scrollY > lastScrollY.current) {
+        // Scrolling down
+        setIsVisible(false);
+      } else {
+        // Scrolling up
+        setIsVisible(true);
+      }
+      lastScrollY.current = window.scrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <nav className="bg-bgGreen1 text-white p-4 border-b-2 border-white">
+    <nav
+      className={`bg-bgGreen1 text-white p-4 border-b-2 border-white fixed top-0 left-0 w-full z-50 shadow-md transition-transform duration-300 ${
+        isVisible ? "translate-y-0" : "-translate-y-full"
+      }`}
+    >
       <div className="container mx-auto flex justify-between items-center">
         <Link
           href="/"
@@ -27,13 +52,13 @@ export default function Navbar() {
         <div className="hidden md:flex space-x-6">
           <Link
             href="/"
-            className="hover:text-gray-300 font-epilogue font-medium "
+            className="hover:text-gray-300 font-epilogue font-medium"
           >
             Home
           </Link>
           <Link
             href="/learn"
-            className="hover:text-gray-300 font-epilogue font-medium "
+            className="hover:text-gray-300 font-epilogue font-medium"
           >
             Learn
           </Link>
