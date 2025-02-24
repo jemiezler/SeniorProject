@@ -12,7 +12,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Initialize FastAPI app
-app = FastAPI()
+app = FastAPI(title="Background Segmentation API", version="0.0.1",description="Remove background from images using DeepLabV3+ model")
 
 def resize_with_padding(image, target_size):
     """Resize image while maintaining aspect ratio with padding."""
@@ -102,6 +102,11 @@ async def segment_image(file: UploadFile = File(...)):
     except Exception as e:
         logger.error(f"❌ Segmentation failed: {e}")
         raise HTTPException(status_code=500, detail=f"Segmentation failed: {e}")
+    
+@app.get("/version")
+def get_version():
+    return {"version": "0.0.1"}
+
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
