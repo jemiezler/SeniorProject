@@ -11,7 +11,7 @@ Before installing dependencies, create and activate a **virtual environment**:
 
 #### **For Linux/macOS:**
 ```bash
-cd src  # Navigate to the FastAPI project directory
+cd backend/background-segmentation/src  # Navigate to the FastAPI project directory
 python3 -m venv venv
 source venv/bin/activate  # Activate virtual environment
 ```
