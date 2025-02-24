@@ -19,15 +19,12 @@ def resize_with_padding(image, target_size):
 
     return padded
 
-def process_images(IMAGE_DIR, MASK_DIR, TARGET_SIZE):
+def process_images(IMAGE_DIR, MASK_DIR, TARGET_SIZE, OUTPUT_IMAGE_DIR, OUTPUT_MASK_DIR):
     """Resize all images and masks in a directory while maintaining aspect ratio."""
-    resized_images = []
-    resized_masks = []
-    
-    # if not os.path.exists(OUTPUT_IMAGE_DIR):
-    #     os.makedirs(OUTPUT_IMAGE_DIR)
-    # if not os.path.exists(OUTPUT_MASK_DIR):
-    #     os.makedirs(OUTPUT_MASK_DIR)
+    if not os.path.exists(OUTPUT_IMAGE_DIR):
+        os.makedirs(OUTPUT_IMAGE_DIR)
+    if not os.path.exists(OUTPUT_MASK_DIR):
+        os.makedirs(OUTPUT_MASK_DIR)
 
     # Get all images and masks
     image_paths = sorted([os.path.join(IMAGE_DIR, f) for f in os.listdir(IMAGE_DIR) if f.endswith('.jpg')])
@@ -40,12 +37,12 @@ def process_images(IMAGE_DIR, MASK_DIR, TARGET_SIZE):
         # Resize with padding
         resized_image = resize_with_padding(image, TARGET_SIZE)
         resized_mask = resize_with_padding(mask, TARGET_SIZE)
-        
-        resized_images.append(resized_image)
-        resized_masks.append(resized_mask)
-        
-    return np.array(resized_images), np.array(resized_masks)
 
+        # Save the resized images and masks
+        filename_image = os.path.basename(img_path)
+        filename_mask = os.path.basename(mask_path)
+        cv2.imwrite(os.path.join(OUTPUT_IMAGE_DIR, filename_image), resized_image)
+        cv2.imwrite(os.path.join(OUTPUT_MASK_DIR, filename_mask), resized_mask)
 # IMAGE_DIR = "../../dataset/images"
 # MASK_DIR = "../../dataset/masks"
 # OUTPUT_IMAGE_DIR = "../../output/images"
