@@ -8,7 +8,7 @@ export const HoverEffect = ({
   className,
 }: {
   items: {
-    id?: string;  // id is optional, we handle missing cases
+    id?: string;  
     title: string;
     description: string;
     link?: string;
