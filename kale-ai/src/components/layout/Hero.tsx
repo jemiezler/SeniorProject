@@ -3,8 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Leaf, ArrowRight } from 'lucide-react';
-// import Waves from '@/components/ui/Waves';
-import Waves from '../ui/Waves';
+import Waves from '@/components/ui/Waves';
 
 export function Hero() {
   return (
@@ -23,16 +22,18 @@ export function Hero() {
             transition={{ duration: 0.5 }}
             className="space-y-4"
           >
-            <div className="flex items-center justify-center space-x-2">
-              <Leaf className="h-8 w-8 text-green-600" />
-              <h2 className="text-lg font-semibold text-green-600">Senior Project - Mae Fah Luang University</h2>
-            </div>
+            
             
             <h1 className="text-4xl md:text-5xl font-bold">
               <span className="bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
                 Kale Analysis Platform
               </span>
             </h1>
+
+            <div className="flex items-center justify-center space-x-2">
+              <Leaf className="h-8 w-8 text-green-600" />
+              <h2 className="text-lg font-semibold text-green-600">Senior Project - Mae Fah Luang University</h2>
+            </div>
             
             <p className="max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-300">
               Advanced AI-powered kale analysis system. Upload multiple images for instant quality assessment and detailed recommendations.
@@ -55,19 +56,13 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto"
+            className="grid grid-cols-1 md:grid-cols-1 gap-8 max-w-3xl mx-auto"
           >
             <div className="text-center">
               <div className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
                 90%
               </div>
               <p className="text-gray-600 dark:text-gray-400">Accuracy Rate</p>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
-                2023-2024
-              </div>
-              <p className="text-gray-600 dark:text-gray-400">Academic Year</p>
             </div>
           </motion.div>
         </div>
