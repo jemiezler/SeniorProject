@@ -487,4 +487,4 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 kale_venv
-resources
+resources/images/[1-9]_*
