@@ -22,3 +22,14 @@ export interface LoadingProps {
   progress: number;
   message?: string;
 } 
+
+export interface SegmentResult {
+  prediction: string;
+  confidence: number;
+  segmentation: {
+    url: string;
+    width: number;
+    height: number;
+  };
+  recommendations: string[];
+}
