@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 
 # Load the trained model
-model_loader = ModelLoader("models/model.pkl")
+model_loader = ModelLoader("models/model.joblib")
 model_loader.load()
 
 class AnalysisService:
