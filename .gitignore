@@ -487,3 +487,4 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 kale_venv
+*.joblib
