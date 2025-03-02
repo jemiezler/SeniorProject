@@ -1,13 +1,13 @@
 "use client";
 
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/layout/Navbar";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import StepBox from "@/components/StepBox";
+import StepBox from "@/components/ui/StepBox";
 import { Upload, Search, CheckCircle, Lightbulb, Soup, FileUp, Check, ChartArea } from "lucide-react";
-import Button from "@/components/Button";
-import {GlareCard} from "@/components/glare-card"
+import Button from "@/components/ui/Button";
+import { FeatureCard } from "@/components/ui/FeatureCard";
 
 const Homepage = () => {
   return (
@@ -33,10 +33,10 @@ const Homepage = () => {
           </div>
 
           <div className="flex flex-wrap justify-center gap-6 w-full">
-            <StepBox icon={<Search size={24} color="white" />} text="Upload your image" />
-            <StepBox icon={<FileUp size={24} color="white" />} text="We'll analyze it" />
-            <StepBox icon={<Check size={24} color="white" />} text="We'll tell you if it's fresh" />
-            <StepBox icon={<Lightbulb size={24} color="white" />} text="Tips to keep it fresh longer" />
+            <FeatureCard icon={Search} title="Upload your image" description={""} />
+            <FeatureCard icon={FileUp} title="We'll analyze it" description={""}/>
+            <FeatureCard icon={Check} title="We'll tell you if it's fresh" description={""}/>
+            <FeatureCard icon={Lightbulb} title="Tips to keep it fresh longer" description={""}/>
           </div>
 
           {/* Start Freshness Test Button */}
@@ -59,19 +59,19 @@ const Homepage = () => {
             </p>
           </div>
 
-          {/* Why use FreshKale? */}
+ 
           <div className="w-full text-left">
             <h2 className="text-2xl font-bold font-epilogue pl-6">Why use FreshKale?</h2>
           </div>
 
           <div className="flex flex-wrap justify-center gap-6 w-full">
-            <StepBox icon={<ChartArea size={24} color="white" />} text="Keep your food fresh" />
-            <StepBox icon={<Search size={24} color="white" />} text="Quickly find what you need" />
-            <StepBox icon={<CheckCircle size={24} color="white" />} text="Create delicious dishes" />
-            <StepBox icon={<Soup size={24} color="white" />} text="Enjoy your meals more" />
+            <FeatureCard icon={ChartArea} title={"Keep your food fresh"} description={""}  />
+            <FeatureCard icon={Search} title="Quickly find what you need" description={""}/>
+            <FeatureCard icon={CheckCircle} title="Create delicious dishes"description={""} />
+            <FeatureCard icon={Soup} title="Enjoy your meals more" description={""}/>
           </div>
 
-          {/* Images */}
+
           <div className="flex flex-wrap justify-center gap-6 w-full">
             <div className="w-[30%] h-auto min-w-[150px]">
               <Image

@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import SubmitButton from "@/components/SubmitButton";
-import { HoverEffect } from "@/components/card-hover-effect";
-import Button from "@/components/Button";
+import { HoverEffect } from "@/components/ui/card-hover-effect";
+import Button from "@/components/ui/Button";
 
 const fetchFreshnessData = async () => {
   const response = await fetch("https://catfact.ninja/fact");
