@@ -1,20 +1,15 @@
 import cv2
 import numpy as np
-from PIL import Image
-import io
 
 class ImageLoader:
-    """Handles image loading from request."""
+    """Efficiently handles image loading from bytes for fast processing."""
 
     @staticmethod
-    def load(image_bytes: bytes) -> np.ndarray:
-        """Loads image from bytes and converts to BGR format."""
-        image = Image.open(io.BytesIO(image_bytes))
-        image = np.array(image)
+    def load(image_bytes: bytes):
+        """Loads an image from bytes and converts it to BGR & grayscale format."""
 
-        # Convert to BGR for OpenCV processing
-        if image.ndim == 2:
-            image = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
-        else:
-            image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-        return image
+        image_array = np.frombuffer(image_bytes, dtype=np.uint8)
+        image = cv2.imdecode(image_array, cv2.IMREAD_UNCHANGED)
+        image_gray = cv2.imdecode(image_array, cv2.IMREAD_GRAYSCALE)
+        
+        return image, image_gray

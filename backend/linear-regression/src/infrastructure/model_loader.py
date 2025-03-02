@@ -1,43 +1,46 @@
 import joblib
-import pandas as pd
 
 class ModelLoader:
-    def __init__(self, model_path: str):
-        self.model_path = model_path
-        self.model = None
-        self.expected_features = None
+    def __init__(self, model, scaler=None, feature_names=None):
+        self.model = model
+        self.scaler = scaler
+        self.feature_names = feature_names
 
-    def load(self):
-        """Load the model and define expected feature names."""
-        self.model = joblib.load(self.model_path)
-
-        # Extract feature names from the model if available
-        if hasattr(self.model, "feature_names_in_"):
-            self.expected_features = list(self.model.feature_names_in_)
+    def fit(self, X, y):
+        if self.scaler:
+            X_scaled = self.scaler.fit_transform(X)
         else:
-            print("⚠️ Model does not have `feature_names_in_`. Defining manually.")
-            # self.expected_features = [
-            #     # HSV features
-            #     'Mean_HSV_H', 'Mean_HSV_S', 'Mean_HSV_V', 'Std_HSV_H', 'Std_HSV_S', 'Std_HSV_V'
-                
-            #     # GLCM features
-            #     'GLCM_contrast', 'GLCM_dissimilarity', 'GLCM_homogeneity', 'GLCM_energy', 'GLCM_correlation',
+            X_scaled = X  # If no scaler, use raw data
+        self.model.fit(X_scaled, y)
 
-            #     # LBP features
-            #     'LBP_0', 'LBP_1', 'LBP_2', 'LBP_3', 'LBP_4', 'LBP_5', 'LBP_6', 'LBP_7',
+    def predict(self, X):
+        if self.scaler:
+            X_scaled = self.scaler.transform(X)
+        else:
+            X_scaled = X  # If no scaler, use raw data
+        return self.model.predict(X_scaled)
 
-            #     # Other color and temperature features
-            #     'Temp', 'Yellow', 'Cyan', 'Chroma'
-            # ]
-            self.model.feature_names_in_ = self.expected_features
+    def save(self, filepath):
+        """Save the model, scaler, and feature names with Joblib"""
+        with open(filepath, "wb") as f:
+            joblib.dump({
+                "model": self.model,
+                "scaler": self.scaler,
+                "feature_names": self.feature_names
+            }, f)
+        print(f"✅ Model saved at {filepath}")
 
-    def predict(self, features: pd.DataFrame):
-        """Predict without scaling."""
-        if self.model is None:
-            raise ValueError("Model is not loaded. Call `load()` before prediction.")
-
-        # Ensure the input features match the expected ones
-        if self.expected_features:
-            features = features[self.expected_features]
-
-        return self.model.predict(features)[0]
+    @classmethod
+    def load(cls, filepath):
+        """Load the model with its scaler and feature names"""
+        try:
+            with open(filepath, "rb") as f:
+                data = joblib.load(f)
+            return cls(
+                model=data["model"],
+                scaler=data["scaler"],
+                feature_names=data["feature_names"]
+            )
+        except Exception as e:
+            print(f"❌ Error loading model: {e}")
+            return None
