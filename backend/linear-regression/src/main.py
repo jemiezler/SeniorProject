@@ -1,9 +1,9 @@
 from fastapi import FastAPI
-from src.api import predict_router
+from src.interfaces.http.predict_controller import router as predict_router
 app = FastAPI(title="Image Feature Extraction & Prediction API")
 
 # Include API routes
-app.include_router(predict_router.router)
+app.include_router(predict_router)
 
 if __name__ == "__main__":
     import uvicorn

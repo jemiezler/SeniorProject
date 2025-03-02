@@ -1,5 +1,5 @@
 from fastapi import APIRouter, File, UploadFile, Form
-from src.application.services import AnalysisService
+from src.application.services.predict_services import PredictService
 from fastapi.responses import Response, StreamingResponse
 
 router = APIRouter()
@@ -7,7 +7,6 @@ router = APIRouter()
 @router.post("/predict/")
 async def predict(
     file: UploadFile = File(...), 
-    temp: float = Form(...)
 ):
     """
     API to accept an image and temperature, then predict output using extracted features.
@@ -15,7 +14,7 @@ async def predict(
     try:
         # Read image bytes
         image = await file.read()
-        prediction = AnalysisService.predict_image(image, temp)
+        prediction = PredictService.predict_image(image,)
         
         return {
             "status": "success",
