@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package segmentation;
+
+service SegmentationService {
+  rpc SegmentAndCount (ImageRequest) returns (SegmentationResponse);
+}
+
+message ImageRequest {
+  string image_url = 1;
+}
+
+message SegmentationResponse {
+  int32 leaf_count = 1;
+  repeated BoundingBox bounding_boxes = 2;
+}
+
+message BoundingBox {
+  int32 x = 1;
+  int32 y = 2;
+  int32 width = 3;
+  int32 height = 4;
+}
