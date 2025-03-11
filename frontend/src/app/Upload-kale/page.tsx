@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import ProgressLoader from "@/components/ui/ProgressLoader";
 import Input from "@/components/ui/input";
 import Button from "@/components/ui/Button";
+import { FileUpload } from "@/components/ui/file-upload";
 
 const UploadKale = () => {
   const [image, setImage] = useState<File | null>(null);
@@ -15,6 +16,9 @@ const UploadKale = () => {
   );
   const [isCompleted, setIsCompleted] = useState(false);
   const router = useRouter();
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [previews, setPreviews] = useState<string[]>([]);
+  const [progress, setProgress] = useState(0);
 
   const processImage = useCallback((file: File) => {
     setImage(file);
@@ -68,6 +72,27 @@ const UploadKale = () => {
     }, 3000);
   }, [image, router]);
 
+  const handleFileSelect = (files: File[]) => {
+    setSelectedFiles(files);
+    const newPreviews: string[] = [];
+    
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        newPreviews.push(reader.result as string);
+        if (newPreviews.length === files.length) {
+          setPreviews(newPreviews);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const handleRemoveFile = (index: number) => {
+    setSelectedFiles(prev => prev.filter((_, i) => i !== index));
+    setPreviews(prev => prev.filter((_, i) => i !== index));
+  };
+
   return (
     <div className="bg-customGreen min-h-screen flex flex-col items-center pt-10 pb-5 px-4">
       <h1 className="text-lg md:text-2xl lg:text-3xl font-bold font-epilogue text-white mb-6 text-center">
@@ -85,17 +110,7 @@ const UploadKale = () => {
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
       >
-        {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt="Preview"
-            className="w-full h-full object-contain rounded-md"
-          />
-        ) : (
-          <p className="text-white text-center font-epilogue font-bold text-sm md:text-base">
-            Upload an image of your kale (png, jpg, jpeg)
-          </p>
-        )}
+           <FileUpload/>
 
         <input
           type="file"

@@ -1,6 +1,5 @@
-"use client";
-
-import React, { useEffect, useState, useMemo, useCallback } from "react";
+"use client"
+import React, { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 import Button from "@/components/ui/Button";
@@ -19,8 +18,16 @@ const Result = () => {
 
   useEffect(() => {
     setFreshnessRating(Math.floor(Math.random() * 5) + 1);
-    setImageUrl(localStorage.getItem("imageUrl") || null);
 
+
+    if (typeof window !== "undefined") {
+      const storedImageUrl = localStorage.getItem("imageUrl");
+      if (storedImageUrl) {
+        setImageUrl(storedImageUrl);
+      }
+    }
+
+    // ดึงข้อมูล freshness จาก API
     fetchFreshnessData().then((fact) =>
       setItems([
         { title: "Date of purchase", description: fact, link: "/purchase" },
@@ -31,7 +38,7 @@ const Result = () => {
   }, []);
 
   const handleGoBack = useCallback(() => {
-    router.push("/Upload-kale");
+    router.push("/");
   }, [router]);
 
   return (
@@ -42,7 +49,11 @@ const Result = () => {
 
       <div className="relative flex flex-col justify-center items-center w-full max-w-[928px] h-[200px] md:h-[250px] lg:h-[309px] border-2 rounded-lg p-4">
         {imageUrl ? (
-          <img src={imageUrl} alt="Preview" className="w-full h-full object-contain rounded-md" />
+          <img
+            src={imageUrl}
+            alt="Preview"
+            className="w-full h-full object-contain rounded-md"
+          />
         ) : (
           <p className="text-white text-center font-epilogue font-bold text-sm md:text-base">
             No image uploaded.
