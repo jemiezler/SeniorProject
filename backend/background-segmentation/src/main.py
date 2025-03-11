@@ -23,4 +23,4 @@ app.include_router(segment_router, prefix="/segment", tags=["Segmentation"])
 app.include_router(version_router, prefix="/version", tags=["Version"])
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8080)
