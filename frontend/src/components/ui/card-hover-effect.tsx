@@ -1,4 +1,4 @@
-import { cn } from "@/app/lib/utils";
+import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
@@ -17,14 +17,14 @@ export const HoverEffect = ({
 }) => {
   let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-  // Ensure items is always an array
+  
   const validItems = Array.isArray(items) ? items : [];
 
   return (
     <div className={cn("grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-10", className)}>
       {validItems.map((item, idx) => (
         <Link
-          href={item?.link || "/"} // Fallback to "/" if link is undefined
+          href={item?.link || "/"} 
           key={item.id ?? `item-${idx}`} // Ensure unique key
           className="relative group block p-2 h-full w-full"
           onMouseEnter={() => setHoveredIndex(idx)}
