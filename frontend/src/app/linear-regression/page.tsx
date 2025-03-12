@@ -8,7 +8,7 @@ import { FeatureCard } from '@/components/ui/FeatureCard';
 import { Leaf, Zap, ChartBar, Shield } from 'lucide-react';
 import type { AnalysisResult } from '@/types';
 
-export default function LinearRegressionPage() {
+export default function Home() {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
   const [isAnalyzing, setIsAnalyzing] = useState(false);

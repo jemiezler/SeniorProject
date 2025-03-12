@@ -60,7 +60,7 @@ export function Hero() {
           >
             <div className="text-center">
               <div className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
-                90%
+                NaN
               </div>
               <p className="text-gray-600 dark:text-gray-400">Accuracy Rate</p>
             </div>
